@@ -1,0 +1,21 @@
+﻿@page "/counter"
+@inject HttpClient Http
+
+<PageTitle>Dice roller</PageTitle>
+
+<h1>Dice roller</h1>
+
+
+<button class="btn btn-primary" @onclick="RollDice">Roll</button>
+
+<p role="status">Last roll: @rollResult</p>
+
+@code {
+    private int rollResult = 0;
+
+    private async void RollDice()
+    {
+        string result = await Http.GetStringAsync("http://localhost:5207/Game/RollDice?numDice=1&numSides=20");
+        int.TryParse(result, out rollResult);
+    }
+}
