@@ -1,21 +1,60 @@
-﻿@page "/counter"
+﻿@page "/dice-roller"
 @inject HttpClient Http
 
 <PageTitle>Dice roller</PageTitle>
 
 <h1>Dice roller</h1>
 
+<EditForm Model="_dice" OnValidSubmit="RollDice">
+<p>
+    <label>Number of dice:
+        <InputNumber @bind-Value="_dice.DieCount" TValue="Int32"></InputNumber>
+    </label>
+</p>
+<p>
+    <label>Number of sides:
+        <InputSelect @bind-Value="_dice.DieSides">
+            @foreach (var side in Enum.GetValues(typeof(DieType)))
+            {
+                <option value="@side">@side</option>
+            }
+        </InputSelect>
+    </label>
+</p>
 
-<button class="btn btn-primary" @onclick="RollDice">Roll</button>
+@if (_diceRoller == null || _diceRoller.LastRoll == 0)
+{
+    <p><em>Enter number of dice and select number of sides of each die.</em></p>
+}
+else
+{
+    <p>Result: @_diceRoller?.ToString()</p>
+}
 
-<p role="status">Last roll: @rollResult</p>
+<button class="btn btn-primary">Roll</button>
+</EditForm>
 
 @code {
-    private int rollResult = 0;
+    DiceHand _dice = new DiceHand(1, DieType.d6);
+    DiceRoll? _diceRoller;
 
-    private async void RollDice()
+    protected override void OnInitialized()
     {
-        string result = await Http.GetStringAsync("http://localhost:5207/Game/RollDice?numDice=1&numSides=20");
-        int.TryParse(result, out rollResult);
+        if (_diceRoller == null)
+        {
+            _diceRoller = new DiceRoll(_dice);
+        }
+
+        base.OnInitialized();
+    }
+
+    private void RollDice()
+    {
+        //string result = await Http.GetStringAsync("http://localhost:5207/Game/RollDice?numDice=1&numSides=20");
+        //int.TryParse(result, out rollResult);
+
+         _diceRoller?.ClearDice();
+         _diceRoller?.AddDice(_dice);
+         _diceRoller?.RollDice();
     }
 }
