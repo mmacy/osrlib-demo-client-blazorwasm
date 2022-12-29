@@ -12,7 +12,7 @@ public class Program
         builder.RootComponents.Add<App>("#app");
         builder.RootComponents.Add<HeadOutlet>("head::after");
 
-        builder.Services.AddScoped(osrlibServiceProvider => new HttpClient { BaseAddress = new Uri("http://127.0.0.1:5207/") });
+        builder.Services.AddScoped(osrlibServiceProvider => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
         builder.Services.AddOidcAuthentication(options =>
         {
