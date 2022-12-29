@@ -1,5 +1,6 @@
 ﻿version: 1
 applications:
+  - appRoot: src
     frontend:
       phases:
         preBuild:
@@ -15,6 +16,6 @@ applications:
       artifacts:
         baseDirectory: /release/wwwroot
         files:
-          - '**/*'
+          - "**/*"
       cache:
         paths: []
