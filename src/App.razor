@@ -3,7 +3,7 @@
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                 <Authorizing>
-                    <p>Determining session state, please wait...</p>
+                    <p>Checking session state, stand by...</p>
                 </Authorizing>
                 <NotAuthorized>
                     <h1>Not logged in</h1>
@@ -15,7 +15,7 @@
         <NotFound>
             <PageTitle>Resource unavailable</PageTitle>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">Sorry, that resource wasn't found or is unavailable.</p>
+                <p role="alert">Sorry, that resource wasn't found or is currently unavailable.</p>
             </LayoutView>
         </NotFound>
     </Router>
