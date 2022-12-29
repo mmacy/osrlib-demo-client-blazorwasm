@@ -16,6 +16,6 @@ applications:
       artifacts:
         baseDirectory: /release/wwwroot
         files:
-          - '**/*'
+          - "**/*"
       cache:
         paths: []
