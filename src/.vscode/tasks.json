@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/osrlib-demo-client-blazorwasm.csproj",
+                "${workspaceFolder}/OSRlibDemoBlazorWASM.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/osrlib-demo-client-blazorwasm.csproj",
+                "${workspaceFolder}/OSRlibDemoBlazorWASM.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/osrlib-demo-client-blazorwasm.csproj"
+                "${workspaceFolder}/OSRlibDemoBlazorWASM.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

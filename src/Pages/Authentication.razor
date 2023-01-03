@@ -1,21 +1,36 @@
-@page "/authentication/{action}"
+﻿@page "/authentication/{action}"
+
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using Microsoft.Extensions.Configuration
 
 @inject NavigationManager Navigation
 @inject IConfiguration Configuration
 
-<RemoteAuthenticatorView Action="@Action">
+<RemoteAuthenticatorView Action="@Action"
+    OnLogOutSucceeded=@this.OnLogOutSucceeded
+    OnLogInSucceeded=@this.OnLogInSucceeded>
+
     <LogOut>
         @{
-            var authority = (string)Configuration["Auth0:Authority"];
-            var clientId = (string)Configuration["Auth0:ClientId"];
+            string? authority     = Configuration["Auth0:Authority"];
+            string? clientId      = Configuration["Auth0:ClientId"];
+            string? postLogoutUri = Configuration["Auth0:PostLogoutRedirectUri"];
 
-             Navigation.NavigateTo($"{authority}/v2/logout?client_id={clientId}");
+            Navigation.NavigateTo($"{authority}/v2/logout?client_id={clientId}&returnTo={postLogoutUri}");
         }
     </LogOut>
 </RemoteAuthenticatorView>
 
 @code{
-    [Parameter] public string Action { get; set; }
+    [Parameter] public string? Action { get; set; }
+
+    public async void OnLogInSucceeded()
+    {
+        Console.WriteLine("IN ============ LogIN succeeded.============ ");
+    }
+
+    public void OnLogOutSucceeded()
+    {
+        Console.WriteLine("OUT OUT ============ LogOUT succeeded. ============ OUT OUT");
+    }
 }
